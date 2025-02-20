@@ -56,7 +56,7 @@ class CategorySerializer(serializers.ModelSerializer):
         fields = '__all__'
 
 
-class ReviewSerializers(serializers.ModelSerializer):
+class ReviewSerializer(serializers.ModelSerializer):
     # product = ProductSerializer(read_only=True)
     # user = UserSerializer(read_only=True)
 
@@ -76,8 +76,8 @@ class OrderSerializer(serializers.ModelSerializer):
 
 
 class CartSerializer(serializers.ModelSerializer):
-    # user = UserSerializer()
-    # product = ProductSerializer()
+    user = UserSerializer(read_only=True)
+    product = ProductSerializer()
 
     class Meta:
         model = Cart

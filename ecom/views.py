@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from rest_framework import generics
-from .models import Product, Category
-from .serializers import ProductSerializer, CategorySerializer
+from .models import Product, Category, Wishlist, Orders, Payments, Review, Cart, UserProfile
+from .serializers import ProductSerializer, CategorySerializer, WishListSerializer, CartSerializer, OrderSerializer, PaymentSerializer, ReviewSerializer
 
 
 def home(request):
@@ -50,3 +50,49 @@ class ProductDetailsView(generics.RetrieveUpdateDestroyAPIView):
 class CategoryList(generics.ListCreateAPIView):
     queryset = Category.objects.all()
     serializer_class = CategorySerializer
+
+
+class WishList(generics.RetrieveAPIView):
+    serializer_class = WishListSerializer
+    queryset = Wishlist.objects.all()
+
+
+class WishListDetails(generics.RetrieveUpdateDestroyAPIView):
+    serializer_class = WishListSerializer
+    queryset = Wishlist.objects.all()
+
+
+class CartList(generics.ListCreateAPIView):
+    serializer_class = CartSerializer
+    queryset = Cart.objects.all()
+
+
+class CartDetails(generics.RetrieveUpdateDestroyAPIView):
+    serializer_class = CartSerializer
+    queryset = Cart.objects.all()
+
+
+class PaymentList(generics.ListCreateAPIView):
+    serializer_class = PaymentSerializer
+    queryset = Payments.objects.all()
+
+
+class ReviewList(generics.ListCreateAPIView):
+    serializer_class = ReviewSerializer
+    queryset = Review.objects.all()
+
+
+class OrderList(generics.ListCreateAPIView):
+    serializer_class = OrderSerializer
+    queryset = Orders.objects.all()
+
+    def perform_create(self, serializer):
+        serializer.save(user=self.request.user)
+
+
+class OrderDetailsList(generics.RetrieveUpdateDestroyAPIView):
+    serializer_class = OrderSerializer
+    queryset = Orders.objects.all()
+
+
+# get reviews of a particular
