@@ -97,7 +97,7 @@ class Cart(models.Model):
 
     @property
     def quantity(self):
-        return self.product.stock
+        return self.product.len()
 
     def __str__(self):
         return f"{self.product.name} - {self.quantity}"

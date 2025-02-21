@@ -1,0 +1,14 @@
+<html>
+  <head>
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <title>Login</title>
+  </head>
+  <body>
+    <h2>Login</h2>
+    <form method="post">
+      {% csrf_token %} {{ form.as_p }}
+      <button type="submit" class="bg-purple-400 p-2 rounded-lg">Login</button>
+    </form>
+  </body>
+</html>

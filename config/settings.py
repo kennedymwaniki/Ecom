@@ -73,6 +73,14 @@ TEMPLATES = [
 WSGI_APPLICATION = 'config.wsgi.application'
 
 
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': [
+        'rest_framework.authentication.SessionAuthentication',
+        'rest_framework.authentication.BasicAuthentication',
+    ]
+}
+
+
 # Database
 # https://docs.djangoproject.com/en/5.1/ref/settings/#databases
 
@@ -127,3 +135,5 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+LOGIN_REDIRECT_URL = 'home'  # Redirects to home page after login
+LOGOUT_REDIRECT_URL = 'home'
