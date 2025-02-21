@@ -5,6 +5,7 @@ from .serializers import ProductSerializer, CategorySerializer, WishListSerializ
 from .forms import RegistrationForm
 from django.contrib.auth import login
 from django.shortcuts import redirect, render
+from rest_framework.permissions import IsAuthenticatedOrReadOnly, IsAuthenticated
 
 
 def home(request):
@@ -38,12 +39,14 @@ def categories_page(request):
 class ProductsList(generics.ListCreateAPIView):
     queryset = Product.objects.all()
     serializer_class = ProductSerializer
+    permission_classes = [IsAuthenticatedOrReadOnly]
 
 
 class ProductDetailsView(generics.RetrieveUpdateDestroyAPIView):
     # het the product by id
     queryset = Product.objects.all()
     serializer_class = ProductSerializer
+    permission_classes = [IsAuthenticated]
 
     def get_object(self):
         # get the object by id
