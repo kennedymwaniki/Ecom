@@ -1,24 +1,43 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Categories</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-  </head>
-  <body class="bg-gray-100">
-    <div class="container mx-auto px-4 py-8">
-      <h1 class="text-4xl font-bold text-center mb-8 text-blue-600">
-        Categories
-      </h1>
-      <div class="grid md:grid-cols-2 gap-6">
-        {% for category in categories %}
-        <div class="bg-white rounded-lg shadow-md p-6">
-          <h2 class="text-xl font-semibold mb-4">{{ category.name }}</h2>
-          <p class="text-gray-600">{{ category.description }}</p>
+<!-- filepath: /c:/Users/hp folio/Documents/MAIN PROJECTS/django ecom/ecom/templates/ecom/cart.html -->
+{% extends 'ecom/base.html' %}
+
+{% block title %}Categories{% endblock %}
+
+{% block content %}
+<h1 class="text-4xl font-bold text-center mb-8 text-blue-600">
+    Product Categories
+</h1>
+
+{% if categories %}
+<div class="grid md:grid-cols-3 gap-6">
+    {% for category in categories %}
+    <div class="bg-white rounded-lg shadow-md overflow-hidden">
+        <div class="p-6">
+            <h2 class="text-xl font-semibold mb-2 text-gray-800">
+                {{ category.name }}
+            </h2>
+            <p class="text-gray-600 mb-4">{{ category.description }}</p>
+            
+            <!-- Show product count if needed -->
+            <p class="text-sm text-gray-500">
+                Products: {{ category.products.count }}
+            </p>
+            
+            <div class="mt-4">
+                <a href="#" class="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-lg">
+                    View Products
+                </a>
+            </div>
         </div>
-        {% endfor %}
-      </div>
     </div>
-  </body>
-</html>
+    {% endfor %}
+</div>
+{% else %}
+<div class="bg-white rounded-lg shadow-md p-6 text-center">
+    <p class="text-gray-600">No categories found.</p>
+    <a href="{% url 'home' %}" class="mt-4 inline-block bg-blue-500 text-white py-2 px-4 rounded-lg hover:bg-blue-600">
+        Return Home
+    </a>
+</div>
+{% endif %}
+{% endblock %}

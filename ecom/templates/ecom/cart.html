@@ -1,0 +1,59 @@
+<!-- filepath: /c:/Users/hp folio/Documents/MAIN PROJECTS/django ecom/ecom/templates/ecom/cart.html -->
+{% extends 'ecom/base.html' %}
+
+{% block title %}Your Cart{% endblock %}
+
+{% block content %}
+<h1 class="text-4xl font-bold text-center mb-8 text-blue-600">Your Cart</h1>
+
+{% if cart_items %}
+  <div class="bg-white rounded-lg shadow-md p-6">
+    <ul class="divide-y divide-gray-200">
+      {% for item in cart_items %}
+        <li class="py-4 flex items-center justify-between">
+          <div class="flex items-center">
+            {% if item.product.image %}
+              <img src="{{ item.product.image.url }}" alt="{{ item.product.name }}" class="w-16 h-16 object-cover rounded mr-4">
+            {% else %}
+              <div class="w-16 h-16 bg-gray-200 rounded mr-4 flex items-center justify-center">
+                <span class="text-gray-400 text-xs">No image</span>
+              </div>
+            {% endif %}
+            <div>
+              <h3 class="text-lg font-medium text-gray-800">{{ item.product.name }}</h3>
+              <p class="text-sm text-gray-500">{{ item.product.description|truncatechars:100 }}</p>
+            </div>
+          </div>
+          <div class="text-right">
+            <p class="text-lg font-bold text-green-600">${{ item.product.price }}</p>
+            <form method="post" action="{% url 'remove-from-cart' item.product.id %}" class="mt-2">
+              {% csrf_token %}
+              <button type="submit" class="text-red-500 text-sm hover:text-red-700">Remove</button>
+            </form>
+          </div>
+        </li>
+      {% endfor %}
+    </ul>
+    
+    <div class="mt-6 border-t border-gray-200 pt-4 flex justify-between items-center">
+      <h3 class="text-lg font-medium text-gray-800">Total:</h3>
+      <p class="text-xl font-bold text-green-600">
+        ${{ cart_total }}
+      </p>
+    </div>
+    
+    <div class="mt-6">
+      <a href="#" class="block w-full bg-blue-500 text-white text-center py-2 px-4 rounded-lg hover:bg-blue-600">
+        Proceed to Checkout
+      </a>
+    </div>
+  </div>
+{% else %}
+  <div class="bg-white rounded-lg shadow-md p-6 text-center">
+    <p class="text-gray-600">Your cart is empty.</p>
+    <a href="{% url 'products-page' %}" class="mt-4 inline-block bg-blue-500 text-white py-2 px-4 rounded-lg hover:bg-blue-600">
+      Browse Products
+    </a>
+  </div>
+{% endif %}
+{% endblock %}
