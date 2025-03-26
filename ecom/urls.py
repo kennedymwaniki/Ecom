@@ -4,9 +4,9 @@ from django.contrib.auth.views import LogoutView
 
 urlpatterns = [
     path('', home, name='home'),
-    path('products/', ProductsList.as_view()),
+    path('products/', ProductsList.as_view(), name='product-list'),
     path('products/<int:pk>/', ProductDetailsView.as_view(), name='product-details'),
-    path('categories/', CategoryList.as_view()),
+    path('categories/', CategoryList.as_view(), name='category-list'),
     path('categories/<int:pk>/', CategoryList.as_view(), name='category-details'),
     path('wishlist/<int:pk>/', WishList.as_view(), name='wishlist-detail'),
     path('Cart/', CartList.as_view(), name='cart'),
